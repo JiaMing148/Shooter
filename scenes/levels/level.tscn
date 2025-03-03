@@ -1,22 +1,32 @@
-[gd_scene load_steps=6 format=3 uid="uid://0c3oytdcv22q"]
+[gd_scene load_steps=5 format=3 uid="uid://0c3oytdcv22q"]
 
 [ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_3nnjp"]
 [ext_resource type="PackedScene" uid="uid://mt17s4agynt2" path="res://scenes/players/player.tscn" id="1_nilgx"]
-[ext_resource type="PackedScene" uid="uid://cx8d4jmsu145g" path="res://scenes/objects/toilet.tscn" id="4_femth"]
-[ext_resource type="PackedScene" uid="uid://dh7bciea8paqy" path="res://scenes/objects/bad.tscn" id="5_t03io"]
-[ext_resource type="PackedScene" uid="uid://bom1ts5vquo72" path="res://scenes/enemies/drone.tscn" id="5_uuvy1"]
+[ext_resource type="Texture2D" uid="uid://dojl01j1m53gn" path="res://graphics/objects/gate.png" id="3_by8w1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qlgyf"]
+size = Vector2(855, 255)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_3nnjp")
 
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Gate" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(495, -506)
+texture = ExtResource("3_by8w1")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-942, -1288, -944, 37, -924, 124, -886, 186, -817, 241, -733, 271, 128, 273, 125, -55, 985, -53, 982, 274, 1830, 275, 1917, 250, 1977, 202, 2021, 150, 2048, 89, 2058, 22, 2055, -1286)
+
+[node name="Area2D" type="Area2D" parent="StaticBody2D"]
+position = Vector2(555, 73)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/Area2D"]
+shape = SubResource("RectangleShape2D_qlgyf")
+
 [node name="Player" parent="." instance=ExtResource("1_nilgx")]
-position = Vector2(735, 427)
+position = Vector2(582, 385)
 
-[node name="bad" parent="." instance=ExtResource("5_t03io")]
-position = Vector2(742, 111)
-
-[node name="toilet" parent="." instance=ExtResource("4_femth")]
-position = Vector2(128, 514)
-
-[node name="drone" parent="." instance=ExtResource("5_uuvy1")]
-position = Vector2(32, 240)
+[connection signal="body_entered" from="StaticBody2D/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="StaticBody2D/Area2D" to="." method="_on_area_2d_body_exited"]

@@ -4,7 +4,7 @@ var speed: float = 500
 var direction: Vector2 = Vector2.RIGHT
 
 func _process(delta: float) -> void:
-	velocity = direction * speed * delta
+	velocity = direction * speed
 	move_and_slide()
 	
 	if position.x > 1000:
