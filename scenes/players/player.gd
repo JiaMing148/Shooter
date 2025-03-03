@@ -1,11 +1,12 @@
-extends Node2D
+extends CharacterBody2D
 
-var speed: float = 500
+var speed: float = 20000
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var direction = Input.get_vector("left", "right", "up", "down")
-	position += direction * speed * delta
+	velocity = direction * speed * delta
+	move_and_slide()
 	
 	if Input.is_action_just_pressed("primary action"):
 		print("shoot laser")
