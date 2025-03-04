@@ -1,32 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://0c3oytdcv22q"]
+[gd_scene load_steps=4 format=3 uid="uid://0c3oytdcv22q"]
 
 [ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_3nnjp"]
 [ext_resource type="PackedScene" uid="uid://mt17s4agynt2" path="res://scenes/players/player.tscn" id="1_nilgx"]
-[ext_resource type="Texture2D" uid="uid://dojl01j1m53gn" path="res://graphics/objects/gate.png" id="3_by8w1"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qlgyf"]
-size = Vector2(855, 255)
+[ext_resource type="PackedScene" uid="uid://2cdtry8x72s6" path="res://scenes/objects/gate.tscn" id="2_1cluh"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_3nnjp")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="Gate" type="Sprite2D" parent="StaticBody2D"]
-position = Vector2(495, -506)
-texture = ExtResource("3_by8w1")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(-942, -1288, -944, 37, -924, 124, -886, 186, -817, 241, -733, 271, 128, 273, 125, -55, 985, -53, 982, 274, 1830, 275, 1917, 250, 1977, 202, 2021, 150, 2048, 89, 2058, 22, 2055, -1286)
-
-[node name="Area2D" type="Area2D" parent="StaticBody2D"]
-position = Vector2(555, 73)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/Area2D"]
-shape = SubResource("RectangleShape2D_qlgyf")
+[node name="Gate" parent="." instance=ExtResource("2_1cluh")]
+position = Vector2(530, -573)
 
 [node name="Player" parent="." instance=ExtResource("1_nilgx")]
 position = Vector2(582, 385)
 
-[connection signal="body_entered" from="StaticBody2D/Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="StaticBody2D/Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="player_entered_gate" from="Gate" to="." method="_on_gate_player_entered_gate"]
+[connection signal="player_exited_gate" from="Gate" to="." method="_on_gate_player_exited_gate"]
+[connection signal="player_shooot_grenade" from="Player" to="." method="_on_player_player_shooot_grenade"]
+[connection signal="player_shoot_laser" from="Player" to="." method="_on_player_player_shoot_laser"]

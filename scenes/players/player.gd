@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+signal player_shoot_laser
+signal player_shooot_grenade
+
 var speed: float = 800
 var can_laser: bool = true
 var can_grenade: bool = true
@@ -11,12 +14,12 @@ func _process(delta: float) -> void:
 	move_and_slide()
 	
 	if can_laser and Input.is_action_pressed("primary action"):
-		print("shoot laser")
+		player_shoot_laser.emit()
 		can_laser = false
 		$LaserTimer.start()
 		
 	if can_grenade and Input.is_action_just_pressed("secondary action"):
-		print("shoot grenade")
+		player_shooot_grenade.emit()
 		can_grenade = false
 		$GrenadeTimer.start()
 
