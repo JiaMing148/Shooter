@@ -1,6 +1,6 @@
-[gd_scene load_steps=14 format=4 uid="uid://0c3oytdcv22q"]
+[gd_scene load_steps=15 format=4 uid="uid://0c3oytdcv22q"]
 
-[ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_3nnjp"]
+[ext_resource type="Script" uid="uid://b2j1jhjq74qhp" path="res://scenes/levels/level.gd" id="1_3nnjp"]
 [ext_resource type="PackedScene" uid="uid://mt17s4agynt2" path="res://scenes/players/player.tscn" id="1_nilgx"]
 [ext_resource type="PackedScene" uid="uid://2cdtry8x72s6" path="res://scenes/objects/gate.tscn" id="2_1cluh"]
 [ext_resource type="Texture2D" uid="uid://c1n7v0rbcffx7" path="res://graphics/ground/stones.png" id="2_6ss7m"]
@@ -9,7 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://cx6k4nobt1b1e" path="res://graphics/tilesets/soil.png" id="5_og3y4"]
 [ext_resource type="Texture2D" uid="uid://y5kaf6jvhop5" path="res://graphics/decals/moss/moss_1.png" id="6_mndih"]
 [ext_resource type="Texture2D" uid="uid://dps75d13moxvc" path="res://graphics/decals/moss/moss_2.png" id="7_yjiam"]
-[ext_resource type="PackedScene" uid="uid://bccbbkh1adgmf" path="res://houses/house.tscn" id="10_26xrv"]
+[ext_resource type="PackedScene" uid="uid://doehapcyd5lyq" path="res://scenes/objects/steam_vent.tscn" id="8_7pb6i"]
+[ext_resource type="PackedScene" uid="uid://bccbbkh1adgmf" path="res://scenes/houses/house.tscn" id="10_26xrv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f6xkq"]
 resource_name = "walls"
@@ -80,6 +81,13 @@ texture = ExtResource("7_yjiam")
 tile_map_data = PackedByteArray("AAD9////AQACAAAAAAD8////AQABAAAAAAD7////AQABAAAAAAD6////AQABAAAAAAD5////AQABAAAAAAD4////AQAAAAAAAAAGAPz/AQAAAAEAAAAGAP3/AQAAAAIAAAAGAP7/AQAAAAIAAAAGAP//AQAAAAIAAAAGAAAAAQABAAIAAAAHAAAAAQABAAAAAAAIAAAAAQABAAAAAAAJAAAAAQABAAAAAAAKAAAAAQABAAAAAAALAAAAAQACAAEAAAALAAEAAQAAAAIAAAALAAIAAQAAAAIAAAALAAMAAQAAAAIAAAALAAQAAQAAAAIAAAALAAUAAQAAAAIAAAALAAYAAQABAAIAAAAMAAYAAQABAAAAAAANAAYAAQABAAAAAAAOAAYAAQABAAAAAAAPAAYAAQABAAAAAAAQAAYAAQABAAAAAAA=")
 tile_set = SubResource("TileSet_m66k2")
 
+[node name="SteamVent" parent="Ground" instance=ExtResource("8_7pb6i")]
+position = Vector2(119, 557)
+
+[node name="House" parent="Ground" instance=ExtResource("10_26xrv")]
+position = Vector2(-1232, 4000)
+rotation = -2.42252
+
 [node name="Gate" parent="." instance=ExtResource("2_1cluh")]
 position = Vector2(530, -573)
 
@@ -88,9 +96,8 @@ position = Vector2(582, 385)
 
 [node name="Projectiles" type="Node2D" parent="."]
 
-[node name="House" parent="." instance=ExtResource("10_26xrv")]
-position = Vector2(-1232, 4000)
-rotation = -2.42252
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+color = Color(0.221302, 0.221302, 0.221302, 1)
 
 [connection signal="player_entered_gate" from="Gate" to="." method="_on_gate_player_entered_gate"]
 [connection signal="player_exited_gate" from="Gate" to="." method="_on_gate_player_exited_gate"]
